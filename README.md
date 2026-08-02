@@ -1,56 +1,65 @@
 <div align="center">
 
-# 🚀 Design and Analysis of Algorithms (DAA) Lab
+# 🚀 Design and Analysis of Algorithms Lab
 
-### 🎓 IIIT Bhubaneswar | CSE Department
+### IIIT Bhubaneswar • C Programming • Algorithm Implementations
 
-<img src="https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c" /> 
-<img src="https://img.shields.io/badge/Course-DAA-success?style=for-the-badge" />
-<!-- <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Maintained-Yes-orange?style=for-the-badge" /> -->
+<img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=600&size=24&pause=1200&color=00BFFF&center=true&vCenter=true&width=700&lines=Welcome+to+the+DAA+Lab+Repository!;Design+and+Analysis+of+Algorithms;Implemented+using+C;Clean+Code+%7C+Efficient+Algorithms;Continuously+Updated" alt="Typing SVG" />
 
----
+<br>
 
-*A well-organized collection of C programs implemented during the Design and Analysis of Algorithms laboratory.*
+<img src="https://img.shields.io/badge/Language-C-A8B9CC?style=for-the-badge&logo=c&logoColor=white">
+<img src="https://img.shields.io/badge/Course-DAA-blue?style=for-the-badge">
+<img src="https://img.shields.io/badge/College-IIIT%20Bhubaneswar-6A5ACD?style=for-the-badge">
+<img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge">
+<img src="https://img.shields.io/badge/Maintained-Yes-orange?style=for-the-badge">
 
 </div>
 
 ---
 
-# 📖 About
+# 📖 Overview
 
-This repository contains all the laboratory programs implemented as part of the **Design and Analysis of Algorithms (DAA)** course.
+This repository contains all the laboratory programs completed during the **Design and Analysis of Algorithms (DAA)** course.
 
-The implementations are written in **C** with a focus on:
+The primary objective of this repository is to maintain a clean, organized, and well-documented collection of algorithm implementations in **C**.
 
-- ✔️ Correctness
-- ✔️ Readability
-- ✔️ Time Complexity
-- ✔️ Space Complexity
-- ✔️ Clean Coding Practices
+Each experiment focuses on understanding the algorithm, writing efficient code, and analyzing its performance using **Time Complexity** and **Space Complexity**.
 
-Each program demonstrates a specific algorithmic concept taught during the laboratory sessions.
+---
+
+# ✨ Features
+
+- 📌 Well-Organized Lab Programs
+- 📌 Clean & Readable C Code
+- 📌 Easy Folder Structure
+- 📌 Beginner Friendly
+- 📌 Complexity Analysis
+- 📌 Regular Updates
 
 ---
 
 # 📂 Repository Structure
 
-```
+```text
 DAA-Lab/
 │
-├── Lab-01/
+├── 📁 Lab-01
 │   └── program.c
 │
-├── Lab-02/
+├── 📁 Lab-02
 │   └── program.c
 │
-├── Lab-03/
+├── 📁 Lab-03
 │   └── program.c
 │
-├── Lab-04/
+├── 📁 Lab-04
 │   └── program.c
 │
-├── Lab-05/
+├── 📁 Lab-05
+│   └── program.c
+│
+├── 📁 Lab-06
 │   └── program.c
 │
 └── README.md
@@ -58,41 +67,44 @@ DAA-Lab/
 
 ---
 
-# 🧠 Algorithms Covered
-
-- Searching Algorithms
-- Sorting Algorithms
-- Divide and Conquer
-- Greedy Algorithms
-- Dynamic Programming
-- Backtracking
-- Graph Algorithms
-- Shortest Path Algorithms
-- Minimum Spanning Tree
-- Recursion
-- Complexity Analysis
-
-> *The list may expand as more laboratory experiments are added.*
-
----
 
 # ⚙️ Technologies Used
 
-| Language | Compiler |
-|----------|----------|
-| C | GCC |
+| Category | Technology |
+|----------|------------|
+| Programming Language | C |
+| Compiler | GCC |
+| IDE | VS Code / Code::Blocks |
 
 ---
 
-# ▶️ How to Run
+# ▶️ Getting Started
 
-### Compile
+## Clone the Repository
+
+```bash
+git clone https://github.com/USERNAME/DAA-Lab.git
+```
+
+---
+
+## Navigate to the Repository
+
+```bash
+cd DAA-Lab
+```
+
+---
+
+## Compile
 
 ```bash
 gcc filename.c -o output
 ```
 
-### Execute
+---
+
+## Run
 
 ```bash
 ./output
@@ -100,56 +112,63 @@ gcc filename.c -o output
 
 ---
 
-# 🎯 Learning Objectives
+# 📈 Complexity Analysis
 
-This repository is maintained to strengthen understanding of:
+Each implementation aims to include:
+
+- ✅ Algorithm
+- ✅ Source Code
+- ✅ Time Complexity
+- ✅ Space Complexity
+
+Example:
+
+| Algorithm | Time | Space |
+|-----------|------|-------|
+| Binary Search | O(log n) | O(1) |
+| Merge Sort | O(n log n) | O(n) |
+| Quick Sort | O(n log n) Avg. | O(log n) |
+
+---
+
+# 🎯 Learning Outcomes
+
+Through this laboratory, I aim to strengthen my understanding of:
 
 - Algorithm Design
 - Problem Solving
-- Computational Complexity
+- Complexity Analysis
 - Optimization Techniques
 - Efficient Coding Practices
+- Competitive Programming Fundamentals
 
 ---
 
-# 📚 Topics Practiced
+# 📌 Repository Goals
 
-- Time Complexity
-- Space Complexity
-- Recursion
-- Divide and Conquer
-- Greedy Method
-- Dynamic Programming
-- Graph Traversal
-- Trees
-- Sorting
-- Searching
-
----
-
-# ⭐ Repository Highlights
-
-- Clean folder structure
-- Well-formatted source code
-- Beginner-friendly implementations
-- Easy to understand
-- Laboratory ready
-- Continuously updated
+- Maintain clean source code.
+- Follow good programming practices.
+- Keep the repository organized.
+- Build a strong reference for interview preparation.
 
 ---
 
 # 🤝 Contributions
 
-This repository is intended for educational purposes.
+This repository is created for educational purposes.
 
-Suggestions and improvements are always welcome.
+Suggestions, improvements, and feedback are always appreciated.
 
 ---
 
 <div align="center">
 
-### ⭐ If you found this repository useful, consider giving it a star!
+## ⭐ If you find this repository helpful, consider giving it a Star!
 
-Made with ❤️ by **Manavendra Gupta**
+<img src="https://capsule-render.vercel.app/api?type=waving&height=100&color=0:4F46E5,100:00BFFF&section=footer"/>
+
+### Designed & Maintained by
+
+# Manavendra Gupta
 
 </div>
