@@ -1,0 +1,1 @@
+// (search, insert, delete, maximum, minimum, predecessor, and successor) when the said data structure is implemented using: • An unsorted array. • Asorted array. • Asingly linked unsorted list. • Asingly linked sorted list. • Adoubly linked unsorted list. • Adoubly linked sorted list. Write a C program to validate your claim by plotting the order of growth of these functions.
