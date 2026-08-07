@@ -85,9 +85,9 @@ int predecessor(int key)
 
     for (int i = 0; i < size; i++)
     {
-        if (dict[i] < key)
+        if (dict[i] < key)  // you are sorting the elements less than the key
         {
-            if (pred == -1 || dict[i] > pred)
+            if (pred == -1 || dict[i] > pred)  // now jo apna sort kiya hai numbers upar jo less than hai key sa usma sa sabsa badha ans hi predecessor hoga
                 pred = dict[i];
         }
     }
@@ -151,5 +151,141 @@ int main()
 }
 
 // Dry run of the predecessor code :
+
+// If you understand this then it is also easy to understand the sucessor
+
+// Step 1:
+
+// int pred = -1;
+// Yeh ek variable hai.
+// Isme hum answer store karenge.
+
+// Initially
+// pred = -1
+
+// Matlab
+// Abhi tak predecessor mila hi nahi.
+
+// Step 2
+// for(int i=0;i<size;i++)
+// Array ke har element ko dekhna hai.
+
+// Suppose:
+// 30 10 80 20 50
+
+// Loop chalega
+// 30
+// 10
+// 80
+// 20
+// 50
+// Ek ek karke.
+
+// Step 3
+// if(dict[i] < key)
+
+// Maan lo
+// key = 50
+// Ab check karte hain
+
+// First element
+// 30
+
+// Question
+// 30 < 50 ?
+// Yes.
+
+// Toh ye predecessor ban sakta hai.
+
+// Second element
+// 10
+
+// Question
+// 10 < 50 ?
+// Yes.
+
+// Ye bhi ban sakta hai.
+
+// Third element
+// 80
+// Question
+// 80 < 50 ?
+// No.
+// Ignore.
+
+// Fourth element
+// 20
+// Question
+// 20 < 50 ?
+// Yes.
+
+// Fifth element
+// 50
+// Question
+// 50 < 50 ?
+// No.
+// Ignore.
+
+// Ab sirf ye candidates bache
+// 30
+// 10
+// 20
+
+// Ab inme predecessor kaun hai?
+
+// Largest.
+
+// Matlab
+// 30
+// Lekin code ko kaise pata chalega?
+
+// Ye line.
+
+// if(pred==-1 || dict[i]>pred)
+
+// Isko slow motion me dekhte hain.
+
+// First iteration
+// Element
+// 30
+// Current
+// pred=-1
+
+// Question
+// pred==-1 ?
+// Yes.
+
+// Toh
+// pred=30
+
+// Ab
+
+// pred=30
+
+// Second iteration
+// Element
+// 10
+// Question
+// 10>30 ?
+// No.
+
+// Toh
+// pred=30
+// Same.
+
+// Third candidate
+// Element
+// 20
+// Question
+// 20>30 ?
+// No.
+
+// Again
+// pred=30
+// Loop finish.
+// Return
+// 30
+
+// Done.
 
 
