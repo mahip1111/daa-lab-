@@ -1,3 +1,9 @@
+// Application of sorting-IV: A camera at the door tracks the entry time ai and exit time bi
+// (assume bi > ai) for each of n the persons pi attending a party. Give an O(n·log n) algorithm
+// that analyses this data to determine the time when the most people were simultaneously
+// present at the party. Assume that all entry and exit times are distinct (no ties). By choosing
+// the proper input representation, write a program in C to validate your algorithm.
+
 #include <stdio.h>
 #include <stdlib.h>
 

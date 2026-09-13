@@ -1,3 +1,14 @@
+//  Sorting via reversal procedure: Suppose you are given a permutation p of the integers
+// 1 to n, and seek to sort them to be in increasing order [1, ..., n]. The only operation at your
+// disposal is reverse(p, i, j), which reverses the elements of a subsequence pi, ..., pj in the
+// permutation. For example, the permutation [1, 4, 3, 2, 5] one reversal (of the second through
+// fourth elements) suffices to sort.
+// •Mathematically, show that it is possible to sort any permutation using O(n) reversals.
+// •Now suppose that the cost of reverse(p, i, j) is equal to its length, the number of
+// elements in the range, |j −i|+ 1. Design an algorithm that sorts p in O(n log2 n) cost.
+// Analyse the running time and cost of your algorithm and prove the correctness.
+// Write a program in C to validate your algorithm supporting your analysis
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

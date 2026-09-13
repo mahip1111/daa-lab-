@@ -1,20 +1,9 @@
+// Application of sorting-III: Given a set S of n integers and an integer T , give an O(nk−1 ·
+// log n) algorithm to test whether k of the integers in S add up to T . By choosing the proper
+// input representation, write a program in C to validate your algorithm
+
 #include <stdio.h>
 #include <stdlib.h>
-
-/*
-    Check whether k elements from S[] add up to T.
-
-    Approach:
-    - Recursively choose k-1 elements.
-    - For the remaining 1 element, use binary search.
-    - Sort the array first.
-
-    Time Complexity:
-        O(n^(k-1) * log n)
-
-    Input representation:
-        Sorted array of integers.
-*/
 
 int compare(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);

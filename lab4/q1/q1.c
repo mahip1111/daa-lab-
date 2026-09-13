@@ -1,3 +1,10 @@
+// Application of sorting-I: Assume that we are given n pairs of items as input, where the
+// first item is a number and the second item is one of three colours (red, blue, or yellow).
+// Further assume that the items are sorted by number. Give an O(n) algorithm to sort
+// the items by colour (all reds before all blues before all yellows) such that the numbers for
+// identical colours stay sorted. By choosing the proper input representation, write a program
+// in C to validate your algorithm.
+
 #include <stdio.h>
 #include <stdlib.h>
 

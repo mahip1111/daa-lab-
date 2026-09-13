@@ -1,3 +1,5 @@
+// find the kth smallest element in an array using quickselect algorithm
+
 #include <stdio.h>
 #include <stdlib.h>
 

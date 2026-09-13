@@ -1,3 +1,15 @@
+// Convolution operation on vectors of size n: The convolution of two vectors A and B
+// is a new vector C such that
+// C[k] =
+// m−1∑︂
+// j=0
+// A[j]B[k −j]
+// Assuming the lengths of A and B are of length m and n, respectively, and the indexing of
+// the vectors starts from 0, find an O(n log n) divide and conquer algorithm for this operation.
+// Consider, n ≥m for your implementation and analysis.
+// By choosing the proper input representation, write a program in C to validate your algo-
+// rithm
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
