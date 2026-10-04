@@ -2,10 +2,11 @@
 
 // Returns index of defective coin, or -1 if none exists
 int findDefective(int coins[], int low, int high, int normalWeight) {
+
+    //Base cases:
     // No coins
     if (low > high)
         return -1;
-
     // Only one coin left
     if (low == high) {
         if (coins[low] < normalWeight)
