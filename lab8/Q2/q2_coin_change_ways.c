@@ -1,104 +1,47 @@
-#include <errno.h>
-#include <inttypes.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-static int read_size(const char *name, size_t *value)
-{
-    char token[128];
-    char *end;
-    uintmax_t input;
+int change(int amount, int* coins, int coinsSize) {
 
-    if (scanf("%127s", token) != 1 || token[0] == '-') {
-        fprintf(stderr, "Invalid %s. Use a non-negative value that fits in memory.\n", name);
-        return 0;
+    // dp[i] = number of ways to make amount i
+    unsigned int* dp =
+        (unsigned int*)calloc(amount + 1, sizeof(unsigned int));
+
+    // There is exactly 1 way to make amount 0:
+    // choose nothing.
+    dp[0] = 1;
+
+    // Try each coin
+    for (int i = 0; i < coinsSize; i++) {
+
+        int coin = coins[i];
+
+        // Calculate ways for every amount
+        // that can use this coin.
+        for (int j = coin; j <= amount; j++) {
+
+            dp[j] += dp[j - coin];
+        }
     }
-    errno = 0;
-    input = strtoumax(token, &end, 10);
-    if (errno == ERANGE || *end != '\0' || input > (uintmax_t)SIZE_MAX) {
-        fprintf(stderr, "Invalid %s. Use a non-negative value that fits in memory.\n", name);
-        return 0;
-    }
-    *value = (size_t)input;
-    return 1;
+
+    // Store the answer
+    unsigned int answer = dp[amount];
+
+    // Free dynamically allocated memory
+    free(dp);
+
+    return answer;
 }
 
-int main(void)
-{
-    size_t count;
-    size_t target;
-    size_t *coins = NULL;
-    uint64_t *ways = NULL;
-    int overflow = 0;
+int main() {
 
-    printf("Coin Change: Number of Combinations\n");
-    printf("Enter the number of denominations, the denominations, and the target amount:\n");
-    if (!read_size("number of denominations", &count)) {
-        return EXIT_FAILURE;
-    }
-    if (count > SIZE_MAX / sizeof(*coins)) {
-        fprintf(stderr, "Too many denominations.\n");
-        return EXIT_FAILURE;
-    }
-    if (count != 0) {
-        coins = malloc(count * sizeof(*coins));
-        if (coins == NULL) {
-            fprintf(stderr, "Unable to allocate the denomination array.\n");
-            return EXIT_FAILURE;
-        }
-    }
-    for (size_t i = 0; i < count; ++i) {
-        if (!read_size("coin denomination", &coins[i]) || coins[i] == 0) {
-            fprintf(stderr, "Coin denominations must be positive.\n");
-            free(coins);
-            return EXIT_FAILURE;
-        }
-        for (size_t previous = 0; previous < i; ++previous) {
-            if (coins[previous] == coins[i]) {
-                fprintf(stderr, "Denominations must be distinct.\n");
-                free(coins);
-                return EXIT_FAILURE;
-            }
-        }
-    }
-    if (!read_size("target amount", &target)) {
-        free(coins);
-        return EXIT_FAILURE;
-    }
-    if (target == SIZE_MAX || target + 1 > SIZE_MAX / sizeof(*ways)) {
-        fprintf(stderr, "Target amount is too large for the dynamic-programming table.\n");
-        free(coins);
-        return EXIT_FAILURE;
-    }
+    int coins[] = {1, 2, 5};
+    int coinsSize = 3;
+    int amount = 5;
 
-    ways = calloc(target + 1, sizeof(*ways));
-    if (ways == NULL) {
-        fprintf(stderr, "Unable to allocate the dynamic-programming table.\n");
-        free(coins);
-        return EXIT_FAILURE;
-    }
-    ways[0] = 1;
-    for (size_t i = 0; i < count && !overflow; ++i) {
-        for (size_t amount = coins[i]; amount <= target; ++amount) {
-            if (UINT64_MAX - ways[amount] < ways[amount - coins[i]]) {
-                overflow = 1;
-                break;
-            }
-            ways[amount] += ways[amount - coins[i]];
-        }
-    }
+    int result = change(amount, coins, coinsSize);
 
-    if (overflow) {
-        fprintf(stderr, "The number of combinations exceeds UINT64_MAX; result cannot be represented.\n");
-        free(ways);
-        free(coins);
-        return EXIT_FAILURE;
-    }
-    printf("Target amount: %zu\n", target);
-    printf("Number of combinations: %llu\n", (unsigned long long)ways[target]);
+    printf("Number of combinations = %d\n", result);
 
-    free(ways);
-    free(coins);
-    return EXIT_SUCCESS;
+    return 0;
 }

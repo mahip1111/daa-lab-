@@ -1,147 +1,78 @@
-#include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-static char *read_line(void)
-{
-    size_t length = 0;
-    size_t capacity = 16;
-    char *line = malloc(capacity);
-    int character;
+int main() {
 
-    if (line == NULL) {
-        return NULL;
-    }
-    while ((character = getchar()) != '\n' && character != EOF) {
-        if (length + 1 >= capacity) {
-            size_t new_capacity;
-            char *grown;
+    char X[100], Y[100];
 
-            if (capacity > SIZE_MAX / 2) {
-                free(line);
-                return NULL;
+    printf("Enter first string: ");
+    scanf("%s", X);
+
+    printf("Enter second string: ");
+    scanf("%s", Y);
+
+    int m = strlen(X);
+    int n = strlen(Y);
+
+    // dp[i][j] = LCS length of
+    // X[0...i-1] and Y[0...j-1]
+    int dp[101][101] = {0};
+
+    // Build DP table
+    for (int i = 1; i <= m; i++) {
+
+        for (int j = 1; j <= n; j++) {
+
+            if (X[i - 1] == Y[j - 1]) {
+                // Characters match
+                dp[i][j] = dp[i - 1][j - 1] + 1;
             }
-            new_capacity = capacity * 2;
-            grown = realloc(line, new_capacity);
-            if (grown == NULL) {
-                free(line);
-                return NULL;
-            }
-            line = grown;
-            capacity = new_capacity;
-        }
-        line[length++] = (char)character;
-    }
-    if (character == EOF && length == 0) {
-        free(line);
-        return NULL;
-    }
-    if (length > 0 && line[length - 1] == '\r') {
-        --length;
-    }
-    line[length] = '\0';
-    return line;
-}
-
-int main(void)
-{
-    char *first;
-    char *second;
-    size_t first_length;
-    size_t second_length;
-    size_t columns;
-    size_t rows;
-    size_t *table;
-    size_t lcs_length;
-    char *answer;
-    size_t i;
-    size_t j;
-    size_t write_at;
-
-    printf("Longest Common Subsequence\n");
-    printf("Enter the first sequence on one line and the second sequence on the next:\n");
-    first = read_line();
-    second = read_line();
-    if (first == NULL || second == NULL) {
-        fprintf(stderr, "Two input lines are required.\n");
-        free(first);
-        free(second);
-        return EXIT_FAILURE;
-    }
-    first_length = strlen(first);
-    second_length = strlen(second);
-    if (second_length == SIZE_MAX || first_length == SIZE_MAX) {
-        fprintf(stderr, "Input is too large.\n");
-        free(first);
-        free(second);
-        return EXIT_FAILURE;
-    }
-    columns = second_length + 1;
-    rows = first_length + 1;
-    if (rows > SIZE_MAX / columns || rows * columns > SIZE_MAX / sizeof(*table)) {
-        fprintf(stderr, "The dynamic-programming table is too large.\n");
-        free(first);
-        free(second);
-        return EXIT_FAILURE;
-    }
-    table = calloc(rows * columns, sizeof(*table));
-    if (table == NULL) {
-        fprintf(stderr, "Unable to allocate the dynamic-programming table.\n");
-        free(first);
-        free(second);
-        return EXIT_FAILURE;
-    }
-
-    for (i = 1; i <= first_length; ++i) {
-        for (j = 1; j <= second_length; ++j) {
-            if (first[i - 1] == second[j - 1]) {
-                table[i * columns + j] = table[(i - 1) * columns + j - 1] + 1;
-            } else {
-                size_t above = table[(i - 1) * columns + j];
-                size_t left = table[i * columns + j - 1];
-                table[i * columns + j] = above > left ? above : left;
+            else {
+                // Characters don't match
+                if (dp[i - 1][j] > dp[i][j - 1])
+                    dp[i][j] = dp[i - 1][j];
+                else
+                    dp[i][j] = dp[i][j - 1];
             }
         }
     }
 
-    lcs_length = table[first_length * columns + second_length];
-    if (lcs_length == SIZE_MAX) {
-        fprintf(stderr, "The reconstructed subsequence is too large.\n");
-        free(table);
-        free(first);
-        free(second);
-        return EXIT_FAILURE;
-    }
-    answer = malloc(lcs_length + 1);
-    if (answer == NULL) {
-        fprintf(stderr, "Unable to allocate the reconstructed subsequence.\n");
-        free(table);
-        free(first);
-        free(second);
-        return EXIT_FAILURE;
-    }
-    answer[lcs_length] = '\0';
-    i = first_length;
-    j = second_length;
-    write_at = lcs_length;
+    // LCS length
+    printf("\nLength of LCS = %d\n", dp[m][n]);
+
+    // Reconstruct the actual LCS
+    char lcs[101];
+    int index = dp[m][n];
+
+    lcs[index] = '\0';
+
+    int i = m;
+    int j = n;
+
     while (i > 0 && j > 0) {
-        if (first[i - 1] == second[j - 1]) {
-            answer[--write_at] = first[i - 1];
-            --i;
-            --j;
-        } else if (table[(i - 1) * columns + j] >= table[i * columns + j - 1]) {
-            --i;
-        } else {
-            --j;
+
+        if (X[i - 1] == Y[j - 1]) {
+
+            // This character is part of LCS
+            lcs[index - 1] = X[i - 1];
+
+            index--;
+            i--;
+            j--;
+        }
+        else if (dp[i - 1][j] > dp[i][j - 1]) {
+
+            // Move UP
+            i--;
+        }
+        else {
+
+            // Move LEFT
+            j--;
         }
     }
 
-    printf("LCS length: %zu\n", lcs_length);
-    printf("LCS: %s\n", answer);
-    free(answer);
-    free(table);
-    free(first);
-    free(second);
-    return EXIT_SUCCESS;
+    printf("LCS = %s\n", lcs);
+
+    return 0;
 }

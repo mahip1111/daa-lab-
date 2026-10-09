@@ -1,100 +1,63 @@
-#include <errno.h>
-#include <inttypes.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-static int read_size(const char *name, size_t *value)
-{
-    char token[128];
-    char *end;
-    uintmax_t input;
+int coinChange(int* coins, int coinsSize, int amount) {
 
-    if (scanf("%127s", token) != 1 || token[0] == '-') {
-        fprintf(stderr, "Invalid %s. Use a non-negative value that fits in memory.\n", name);
-        return 0;
-    }
-    errno = 0;
-    input = strtoumax(token, &end, 10);
-    if (errno == ERANGE || *end != '\0' || input > (uintmax_t)SIZE_MAX) {
-        fprintf(stderr, "Invalid %s. Use a non-negative value that fits in memory.\n", name);
-        return 0;
-    }
-    *value = (size_t)input;
-    return 1;
-}
+    // dp[i] = minimum number of coins needed to make amount i
+    int* dp = (int*)malloc((amount + 1) * sizeof(int));
 
-int main(void)
-{
-    size_t count;
-    size_t target;
-    size_t *coins = NULL;
-    size_t *minimum = NULL;
-
-    printf("Minimum Coin Change\n");
-    printf("Enter the number of denominations, the denominations, and the target amount:\n");
-    if (!read_size("number of denominations", &count)) {
-        return EXIT_FAILURE;
-    }
-    if (count > SIZE_MAX / sizeof(*coins)) {
-        fprintf(stderr, "Too many denominations.\n");
-        return EXIT_FAILURE;
-    }
-    if (count != 0) {
-        coins = malloc(count * sizeof(*coins));
-        if (coins == NULL) {
-            fprintf(stderr, "Unable to allocate the denomination array.\n");
-            return EXIT_FAILURE;
-        }
+    // Initialize every value with amount + 1
+    // amount + 1 means "currently impossible"
+    for (int i = 0; i <= amount; i++) {
+        dp[i] = amount + 1;
     }
 
-    for (size_t i = 0; i < count; ++i) {
-        if (!read_size("coin denomination", &coins[i]) || coins[i] == 0) {
-            fprintf(stderr, "Coin denominations must be positive.\n");
-            free(coins);
-            return EXIT_FAILURE;
-        }
-    }
-    if (!read_size("target amount", &target)) {
-        free(coins);
-        return EXIT_FAILURE;
-    }
-    if (target == SIZE_MAX || target + 1 > SIZE_MAX / sizeof(*minimum)) {
-        fprintf(stderr, "Target amount is too large for the dynamic-programming table.\n");
-        free(coins);
-        return EXIT_FAILURE;
-    }
+    // 0 coins are needed to make amount 0
+    dp[0] = 0;
 
-    minimum = malloc((target + 1) * sizeof(*minimum));
-    if (minimum == NULL) {
-        fprintf(stderr, "Unable to allocate the dynamic-programming table.\n");
-        free(coins);
-        return EXIT_FAILURE;
-    }
-    for (size_t amount = 0; amount <= target; ++amount) {
-        minimum[amount] = target + 1;
-    }
-    minimum[0] = 0;
+    // Calculate minimum coins for every amount from 1 to amount
+    for (int i = 1; i <= amount; i++) {
 
-    for (size_t amount = 1; amount <= target; ++amount) {
-        for (size_t i = 0; i < count; ++i) {
-            if (coins[i] <= amount && minimum[amount - coins[i]] != target + 1) {
-                size_t candidate = minimum[amount - coins[i]] + 1;
-                if (candidate < minimum[amount]) {
-                    minimum[amount] = candidate;
-                }
+        // Try every coin
+        for (int j = 0; j < coinsSize; j++) {
+
+            int coin = coins[j];
+
+            if (i >= coin) {
+
+                // Either keep the current answer
+                // or use this coin
+                dp[i] = dp[i] < dp[i - coin] + 1
+                        ? dp[i]
+                        : dp[i - coin] + 1;
             }
         }
     }
 
-    printf("Target amount: %zu\n", target);
-    if (minimum[target] == target + 1) {
-        printf("Minimum coins: -1 (the target cannot be formed)\n");
+    // If dp[amount] is still amount + 1,
+    // then the amount cannot be formed
+    int answer;
+
+    if (dp[amount] > amount) {
+        answer = -1;
     } else {
-        printf("Minimum coins: %zu\n", minimum[target]);
+        answer = dp[amount];
     }
 
-    free(minimum);
-    free(coins);
-    return EXIT_SUCCESS;
+    free(dp);
+
+    return answer;
+}
+
+int main() {
+
+    int coins[] = {1, 2, 5};
+    int coinsSize = 3;
+    int amount = 11;
+
+    int result = coinChange(coins, coinsSize, amount);
+
+    printf("Minimum number of coins = %d\n", result);
+
+    return 0;
 }
